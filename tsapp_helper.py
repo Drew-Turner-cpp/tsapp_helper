@@ -1,6 +1,16 @@
 
 import tsapp as ts
 
+def txt_align(x, y, textobj):
+    """Aligns the text object given to the two alignment args"""
+    sprite.align = x
+    sprite.align = y
+    
+def center_on(moveobj, centerobj, offset=50):
+    """Centers one object on another"""
+    moveobj.x = centerobj.x + offset
+    moveobj.y = centerobj.y + offset
+
 def add_to_scene(frame, *args):
     """Adds all sprites to the scene"""
     for i in range(len(args)):
