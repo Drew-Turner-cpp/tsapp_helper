@@ -1,0 +1,42 @@
+txt_align(x alignment, y alignment, text object) - centers text based on the two alignment operators
+
+center_on(obj to be centered, center frame, offset) - centers an object on another with an applied offset
+
+add_to_scene(window, sprites) - Adds all sprites given
+
+rotate(degrees) - Sets a sprites angle to a set position 
+
+
+Class: Movement(Movement speed)
+
+  Attributes
+  Movement.ms - The speed at wich the object will move (int)
+
+  Movement.mkdict - A dictionary used to apply x and y offsets to an object
+
+  Movement.mklist - A list of all keys that can be pressed (Arrow keys)
+
+  Movement.dirlist - A dictionary of all directions described by strings ‘up’,  ‘down’,  ‘left’,  ‘right’ and their offsets
+
+  Methods
+  Movement.arrow_move(sprite) - Applies movement to the object provided
+
+  Movement.spin(speed, sprite) - Rotates the object at a set speed
+
+Example Script:
+		import tsapp
+		import tsapp_helper as h
+	
+		window = tsapp.GrapicsWindow()
+
+		mover = h.Movement(5)
+		obj1 = tsapp.Sprite(‘filler.png’, 100, 100) 
+h.add_to_scene(window, obj1)
+
+while window.is_running:
+	window.finish_frame()
+	mover.arrow_move(obj1)
+	mover.spin(3, obj1)
+
+
+This script will add ‘filler.png’ into the scene and it will spin to the left at the speed 3, you can move the png around the scene by using the arrow keys.
