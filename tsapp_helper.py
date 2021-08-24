@@ -7,6 +7,7 @@ def add_to_scene(frame, *args):
         frame.add_object(args[i])
         
 def rotate(sprite, degs):
+    """sets the sprites angle"""
     sprite.angle = degs
         
 class Movement:
