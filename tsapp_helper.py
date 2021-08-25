@@ -3,8 +3,8 @@ import tsapp as ts
 
 def txt_align(x, y, textobj):
     """Aligns the text object given to the two alignment args"""
-    sprite.align = x
-    sprite.align = y
+    textobj.align = x
+    textobj.align = y
     
 def center_on(moveobj, centerobj, offset=50):
     """Centers one object on another"""
@@ -45,4 +45,3 @@ class Movement:
         """Rotates at a constant rate"""
         sprite.angle += speed
         
-    
