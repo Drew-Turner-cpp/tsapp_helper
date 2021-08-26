@@ -1,3 +1,5 @@
+pos_offset(x offset, y offset, object) - adds the offsets to each axis
+
 txt_align(x alignment, y alignment, text object) - centers text based on the two alignment operators
 
 center_on(obj to be centered, center frame, offset) - centers an object on another with an applied offset
