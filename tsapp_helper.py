@@ -1,6 +1,11 @@
 
 import tsapp as ts
 
+def pos_offset(offx, offy, obj):
+    """Adds the offset to the object deturmined by the offest args"""
+    obj.x += offx
+    obj.y += offy
+
 def txt_align(x, y, textobj):
     """Aligns the text object given to the two alignment args"""
     textobj.align = x
