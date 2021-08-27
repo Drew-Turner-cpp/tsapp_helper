@@ -1,6 +1,11 @@
 
 import tsapp as ts
 
+def pos_set(x, y, obj):
+    """Sets the position of an object"""
+    obj.x = x
+    obj.y = y
+
 def pos_offset(offx, offy, obj):
     """Adds the offset to the object deturmined by the offest args"""
     obj.x += offx
@@ -18,8 +23,13 @@ def center_on(moveobj, centerobj, offset=50):
 
 def add_to_scene(frame, *args):
     """Adds all sprites to the scene"""
+    olist = []
+    
     for i in range(len(args)):
         frame.add_object(args[i])
+        olist.append(args[i])
+        
+    return olist
         
 def rotate(sprite, degs):
     """sets the sprites angle"""
@@ -64,13 +74,13 @@ class Cursor:
         
     def detect(self):
         """Runs the detecting algorythm with a scaled down png"""
+        
         for i in range(len(self.ojl)):
             self.lock()
-            
-            if self.c.is_colliding_rect(self.ojl[i]):
-                
-                if self.ojl[i] is None:
+            try:
+                if self.c.is_colliding_rect(self.ojl[i]):
+                    return self.ojl[i]
+            except AttributeError:
                     return self.ojl[0]
-                
-                return self.ojl[i]        
-        
+            
+            
