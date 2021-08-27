@@ -51,7 +51,7 @@ class Movement:
         sprite.angle += speed
         
 
- class Cursor:
+class Cursor:
     def __init__(self, follower_img, objlist):
         self.c = follower_img
         self.c.scale = 0.05
