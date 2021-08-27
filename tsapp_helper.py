@@ -50,3 +50,27 @@ class Movement:
         """Rotates at a constant rate"""
         sprite.angle += speed
         
+
+ class Cursor:
+    def __init__(self, follower_img, objlist):
+        self.c = follower_img
+        self.c.scale = 0.05
+        self.ojl = objlist
+        
+    def lock(self):
+        """Locks the follower to the cursor for detection"""
+        self.c.x = ts.get_mouse_x()
+        self.c.y = ts.get_mouse_y()
+        
+    def detect(self):
+        """Runs the detecting algorythm with a scaled down png"""
+        for i in range(len(self.ojl)):
+            self.lock()
+            
+            if self.c.is_colliding_rect(self.ojl[i]):
+                
+                if self.ojl[i] is None:
+                    return self.ojl[0]
+                
+                return self.ojl[i]        
+        
