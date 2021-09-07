@@ -1,17 +1,24 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 pos_offset(x offset, y offset, object) - adds the offsets to each axis
+
 
 txt_align(x alignment, y alignment, text object) - centers text based on the two alignment operators
 
+
 center_on(obj to be centered, center frame, offset) - centers an object on another with an applied offset
+
 
 add_to_scene(window, sprites) - Adds all sprites given
 
+
 rotate(degrees) - Sets a sprites angle to a set position 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Class: Movement(Movement speed)
 
-  Attributes
+  Attributes:
   Movement.ms - The speed at wich the object will move (int)
 
   Movement.mkdict - A dictionary used to apply x and y offsets to an object
@@ -20,25 +27,54 @@ Class: Movement(Movement speed)
 
   Movement.dirlist - A dictionary of all directions described by strings ‘up’,  ‘down’,  ‘left’,  ‘right’ and their offsets
 
-  Methods
+
+  Methods:
   Movement.arrow_move(sprite) - Applies movement to the object provided
 
   Movement.spin(speed, sprite) - Rotates the object at a set speed
 
-Example Script:
-		import tsapp
-		import tsapp_helper as h
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Class Cursor(Cursor hitbox: must be a sprite in the scene, List of all objects in scene)
+  
+  Attributes:
+  Cursor.c - The sprite in the scene that gives the cursor it's hitbox
+  
+  Cursor.ojl = The list of object fed into the class instance
+  
+  
+  Methods:
+  Cursor.lock() - Makes Cursor.c follow the mouse
+  
+  (WORK IN PROGRESS)Cursor.detect() - Draws from Cursor.ojl and detects the sprite that Cursor.c is colliding with
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+For all of these examples i am going to asume that you have imported both tsapp and tsapp_helper, I will be shortening them to ts for tsapp
+and h for tsapp_helper
 	
-		window = tsapp.GrapicsWindow()
-
+Example Scripts:
+	
+	Movement Class Example:
+	|||||||||||||||||||||||||||||||||||||||||||||||||||||
+		window = ts.GraphicsWindow()
 		mover = h.Movement(5)
-		obj1 = tsapp.Sprite(‘filler.png’, 100, 100) 
-h.add_to_scene(window, obj1)
 
-while window.is_running:
-	window.finish_frame()
-	mover.arrow_move(obj1)
-	mover.spin(3, obj1)
+		bg = ts.Sprite('Scene_bg.jpg', 100, 100)
+		obj = ts.Sprite('Circle.png', 100, 100)
 
+		h.add_to_scene(window, bg, obj)
+		
+		while window.is_running:
+			window.finish_frame()
+			mover.arrow_move(obj)
+	|||||||||||||||||||||||||||||||||||||||||||||||||||||
+	This will apply arrow key movement to the object obj in a window
+	
+	Cursor Class Example:
+	|||||||||||||||||||||||||||||||||||||||||||||||||||||
+	
+	
+	
 
 This script will add ‘filler.png’ into the scene and it will spin to the left at the speed 3, you can move the png around the scene by using the arrow keys.
