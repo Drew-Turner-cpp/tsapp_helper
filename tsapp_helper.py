@@ -1,6 +1,11 @@
 
 import tsapp as ts
 
+def lock_to_mouse(obj):
+    """Centers an object on the mouse"""
+    obj.center_x = ts.get_mouse_x()
+    obj.center_y = ts.get_mouse_y()
+
 def pos_offset(offx, offy, obj):
     """Adds the offset to the object deturmined by the offest args"""
     obj.x += offx
@@ -13,8 +18,8 @@ def txt_align(x, y, textobj):
     
 def center_on(moveobj, centerobj, offset=50):
     """Centers one object on another"""
-    moveobj.x = centerobj.x + offset
-    moveobj.y = centerobj.y + offset
+    moveobj.x = centerobj.center_x + offset
+    moveobj.y = centerobj.center_y + offset
 
 def add_to_scene(frame, *args):
     """Adds all sprites to the scene, returns a list of all objects in the scene"""
@@ -64,19 +69,13 @@ class Cursor:
         self.c.scale = 0.01   # Scale the follower down as to not be visible
         self.ojl = objlist    # Used in detect() to return the sprite the follower is colliding with
         
-    def lock(self):
-        """Locks the follower to the cursor for detection"""
-        self.c.x = ts.get_mouse_x()
-        self.c.y = ts.get_mouse_y()
-        
     def detect(self):
         """Runs the detecting algorythm with a scaled down png"""
         for i in range(len(self.ojl)):
-            self.lock()  # Lock the follower image to the mouse
+            lock_to_mouse(self.c)  # Lock the follower image to the mouse
             
             if self.c.is_colliding_rect(self.ojl[i]):  # If the follower is colliding with a sprite in the object
                 if self.ojl[i] is None:                # list and returns it
                     # if the sprite is a NoneType then return the first sprite in the list
                     return self.ojl[0]
                 return self.ojl[i] # Return object colliding with the follower      
-            
