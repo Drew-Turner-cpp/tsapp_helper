@@ -1,11 +1,6 @@
 
 import tsapp as ts
 
-def pos_set(x, y, obj):
-    """Sets the position of an object"""
-    obj.x = x
-    obj.y = y
-
 def pos_offset(offx, offy, obj):
     """Adds the offset to the object deturmined by the offest args"""
     obj.x += offx
@@ -22,18 +17,18 @@ def center_on(moveobj, centerobj, offset=50):
     moveobj.y = centerobj.y + offset
 
 def add_to_scene(frame, *args):
-    """Adds all sprites to the scene"""
-    olist = []
-    
-    for i in range(len(args)):
+    """Adds all sprites to the scene, returns a list of all objects in the scene"""
+    objarr = []
+    for i in range(len(args)):    # Adds every sprite in the args to a list
         frame.add_object(args[i])
-        olist.append(args[i])
+        objarr.append(args[i])
         
-    return olist
+    return objarr  # Returns the list of objects
         
 def rotate(sprite, degs):
-    """sets the sprites angle"""
+    """Adds or subtracts from the angle of the sprite to spin it"""
     sprite.angle = degs
+
         
 class Movement:
     def __init__(self, mspeed):
@@ -58,14 +53,16 @@ class Movement:
                 
     def spin(self, speed, sprite):
         """Rotates at a constant rate"""
+        if sprite is None:
+            return True
         sprite.angle += speed
         
 
 class Cursor:
     def __init__(self, follower_img, objlist):
         self.c = follower_img
-        self.c.scale = 0.05
-        self.ojl = objlist
+        self.c.scale = 0.01   # Scale the follower down as to not be visible
+        self.ojl = objlist    # Used in detect() to return the sprite the follower is colliding with
         
     def lock(self):
         """Locks the follower to the cursor for detection"""
@@ -74,13 +71,12 @@ class Cursor:
         
     def detect(self):
         """Runs the detecting algorythm with a scaled down png"""
-        
         for i in range(len(self.ojl)):
-            self.lock()
-            try:
-                if self.c.is_colliding_rect(self.ojl[i]):
-                    return self.ojl[i]
-            except AttributeError:
-                    return self.ojl[0]
+            self.lock()  # Lock the follower image to the mouse
             
+            if self.c.is_colliding_rect(self.ojl[i]):  # If the follower is colliding with a sprite in the object
+                if self.ojl[i] is None:                # list and returns it
+                    # if the sprite is a NoneType then return the first sprite in the list
+                    return self.ojl[0]
+                return self.ojl[i] # Return object colliding with the follower      
             
