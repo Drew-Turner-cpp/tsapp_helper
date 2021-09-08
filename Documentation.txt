@@ -70,9 +70,9 @@ Example Scripts:
 			mover.arrow_move(obj)
 	|||||||||||||||||||||||||||||||||||||||||||||||||||||
 	This will apply arrow key movement to the object obj in a window
-	
-	Cursor Class Example:
-	|||||||||||||||||||||||||||||||||||||||||||||||||||||
+        |||||||||||||||||||||
+        Cursor Class Example:
+        |||||||||||||||||||||||||||||||||||||||||||||||||||||
 		window = ts.GraphicsWindow(800, 800, ts.BLACK)
 		mover = h.Movement(5)
 		
@@ -87,10 +87,11 @@ Example Scripts:
 			window.finish_frame()
 			
 			scan = cursor.detect()
-			
-			if ts.is_mouse_down() and scan is ts.Sprite:
-				mover.spin(5, scan)
-	
-	
+			mover.spin(5, scan)
+	|||||||||||||||||||||||||||||||||||||||||||||||||||||
+	This will make an 800 by 800 window with two objects visible, 
+	the objects will spin when you hover over them. This is due
+	to mouse.detect() sensing the sprite in the scene and spinning
+	it.
 
 This script will add ‘filler.png’ into the scene and it will spin to the left at the speed 3, you can move the png around the scene by using the arrow keys.
