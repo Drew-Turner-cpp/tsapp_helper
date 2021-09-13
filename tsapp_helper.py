@@ -1,6 +1,23 @@
 
 import tsapp as ts
-
+###############################################################################################
+"""
+            Adding to a scene
+"""
+###############################################################################################
+def add_to_scene(frame, *args):
+    """Adds all sprites to the scene, returns a list of all objects in the scene"""
+    objarr = []
+    for i in range(len(args)):    # Adds every sprite in the args to a list
+        frame.add_object(args[i])
+        objarr.append(args[i])
+        
+    return objarr  # Returns the list of objects
+###############################################################################################
+"""
+            Positioning and moving functions
+"""
+###############################################################################################
 def lock_to_mouse(obj):
     """Centers an object on the mouse"""
     obj.center_x = ts.get_mouse_x()
@@ -20,20 +37,15 @@ def center_on(moveobj, centerobj, offset=50):
     """Centers one object on another"""
     moveobj.x = centerobj.center_x + offset
     moveobj.y = centerobj.center_y + offset
-
-def add_to_scene(frame, *args):
-    """Adds all sprites to the scene, returns a list of all objects in the scene"""
-    objarr = []
-    for i in range(len(args)):    # Adds every sprite in the args to a list
-        frame.add_object(args[i])
-        objarr.append(args[i])
-        
-    return objarr  # Returns the list of objects
         
 def rotate(sprite, degs):
     """Adds or subtracts from the angle of the sprite to spin it"""
     sprite.angle = degs
-    
+###############################################################################################
+"""
+            Edge Collision
+"""
+###############################################################################################
 def check_edge(obj, window):
     """Checks if the center of an image is out of bounds and returns true if it is"""
     if obj.center_x <= 0 or obj.center_y <= 0:  # If obj is out of bounds
@@ -54,8 +66,15 @@ def bounce_edge(obj, window):
         obj.x_speed *= -1
     elif obj.center_y >= window.height:
         obj.y_speed *= -1
-
-        
+###############################################################################################
+"""
+            Specialized Classes:
+            
+            Movement
+            Cursor
+            Animation
+"""
+###############################################################################################
 class Movement:
     def __init__(self, mspeed):
         """Create a new movement object"""
@@ -82,8 +101,7 @@ class Movement:
         if sprite is None:
             return True
         sprite.angle += speed
-        
-
+###############################################################################################
 class Cursor:
     def __init__(self, follower_img, objlist):
         self.c = follower_img
@@ -100,8 +118,7 @@ class Cursor:
                     # if the sprite is a NoneType then return the first sprite in the list
                     return self.ojl[0]
                 return self.ojl[i] # Return object colliding with the follower
-            
-
+###############################################################################################
 class Animation:
     def __init__(self, window, framerate=30):
         self.fps = framerate
