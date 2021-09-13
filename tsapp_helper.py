@@ -33,6 +33,27 @@ def add_to_scene(frame, *args):
 def rotate(sprite, degs):
     """Adds or subtracts from the angle of the sprite to spin it"""
     sprite.angle = degs
+    
+def check_edge(obj, window):
+    """Checks if the center of an image is out of bounds and returns true if it is"""
+    if obj.center_x <= 0 or obj.center_y <= 0:  # If obj is out of bounds
+        return True                             # return true
+    elif obj.center_x >= window.width or obj.center_y >= window.height:
+        return True
+    else:
+        return False
+    
+def bounce_edge(obj, window):
+    """Checks for edge and reverses the direction from witch it came"""
+    if obj.center_x <= 0:
+        obj.x_speed *= -1
+    elif obj.center_y <= 0:
+        obj.y_speed *= -1
+
+    elif obj.center_x >= window.width:
+        obj.x_speed *= -1
+    elif obj.center_y >= window.height:
+        obj.y_speed *= -1
 
         
 class Movement:
@@ -78,4 +99,30 @@ class Cursor:
                 if self.ojl[i] is None:                # list and returns it
                     # if the sprite is a NoneType then return the first sprite in the list
                     return self.ojl[0]
-                return self.ojl[i] # Return object colliding with the follower      
+                return self.ojl[i] # Return object colliding with the follower
+            
+
+class Animation:
+    def __init__(self, window, framerate=30):
+        self.fps = framerate
+        self.win = window
+        
+    def animate_seq(self, sprite, duration, *args):
+        """Takes the sprite, and a duration with a series of images
+            and displays them in a sequence of even intervals"""
+        ilist = []  # List for the images 
+        
+        for i in range(len(args)):
+            # Takes all images in *args and sppends them to a list
+            # I do this for easier handling and for future compatability
+            ilist.append(args[i])
+            
+        tick = round(duration/len(ilist))  
+        # A tick is equal to the duration over the length of the 
+        # image list rounded to the nearest whole number.
+        
+        for x in range(len(ilist)):      # For every image in the list
+            for wait in range(tick):     # change the sprites image to
+                sprite.image = ilist[x]  # one image in the image list
+                self.win.finish_frame()  # then changes to the another 
+                                         # after the time of a tick has passed
