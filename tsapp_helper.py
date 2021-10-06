@@ -23,6 +23,11 @@ def lock_to_mouse(obj):
     obj.center_x = ts.get_mouse_x()
     obj.center_y = ts.get_mouse_y()
 
+def pos_set(x, y obj):
+    """Sets the postition of an object"""
+    obj.x = x
+    obj.y = y
+
 def pos_offset(offx, offy, obj):
     """Adds the offset to the object deturmined by the offest args"""
     obj.x += offx
@@ -88,12 +93,21 @@ class Movement:
         self.dirlist = {'up': [0, -self.ms], 'down': [0, self.ms],      # This is for checking and applying to
             'left': [-self.ms, 0], 'right': [self.ms, 0]}               # the dictionary
     
-    def arrow_move(self, sprite):
+    def arrow_move(self, sprite, ristrict='none'):
         """Applies a movement check to a sprite"""
-        for i in range(len(self.mklist)):             # Check if any of the keys in mklist have been pressed.
-            if ts.is_key_down(self.mklist[i]):        # Then add the offset specified by the key pressed
-                sprite.x += self.mkdict[self.mklist[i]][0]
-                sprite.y += self.mkdict[self.mklist[i]][1]
+        if ristrict == 'x':
+            for i in range(len(self.mklist)):             
+                if ts.is_key_down(self.mklist[i]):       
+                    sprite.x += self.mkdict[self.mklist[i]][0]
+        elif ristrict == 'y':
+            for i in range(len(self.mklist)):            
+                if ts.is_key_down(self.mklist[i]):       
+                    sprite.y += self.mkdict[self.mklist[i]][1]
+        else:
+            for i in range(len(self.mklist)):             # Check if any of the keys in mklist have been pressed.
+                if ts.is_key_down(self.mklist[i]):        # Then add the offset specified by the key pressed
+                    sprite.x += self.mkdict[self.mklist[i]][0]
+                    sprite.y += self.mkdict[self.mklist[i]][1]
 
                 
     def spin(self, speed, sprite):
